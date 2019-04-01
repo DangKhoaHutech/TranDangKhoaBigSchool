@@ -8,6 +8,7 @@ namespace BigSchool_1611060152.Models
 {
     public class Category
     {
+        // tran dang khoa 
         public byte Id { get; set; }
         [Required]
         [StringLength(225)]

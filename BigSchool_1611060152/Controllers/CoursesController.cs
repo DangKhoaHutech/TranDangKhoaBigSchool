@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using System.Web.ModelBinding;
 using System.Web.Mvc;
 
 namespace BigSchool_1611060152.Controllers
@@ -20,7 +21,6 @@ namespace BigSchool_1611060152.Controllers
         }
         // GET: Courses
         [Authorize]
-        [HttpPost]
         public ActionResult Create()
         {
             var viewModel = new CourseViewModel
@@ -28,8 +28,16 @@ namespace BigSchool_1611060152.Controllers
 
             return View(viewModel);
         }
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create (CourseViewModel viewModel)
         {
+            if(!ModelState.IsValid)
+            {
+                viewModel.Categories = _dbContext.Categories.ToList();
+                return View("Create", viewModel);
+            }
             var course = new Course
             {
                 LecturerId = User.Identity.GetUserId(),

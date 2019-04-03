@@ -79,6 +79,10 @@ namespace BigSchool_1611060152.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+        // bo sung thuoc tinh Name
+        [Required]
+        [StringLength(255)]
+        public string Name { get; set; }
     }
 
     public class ResetPasswordViewModel
@@ -98,6 +102,8 @@ namespace BigSchool_1611060152.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+       
 
         public string Code { get; set; }
     }

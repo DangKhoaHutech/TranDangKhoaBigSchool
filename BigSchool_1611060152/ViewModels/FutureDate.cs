@@ -9,6 +9,7 @@ namespace BigSchool_1611060152.ViewModels
 {
     public class FutureDate : ValidationAttribute
     {
+        /*tran dang khoa */
         public override bool IsValid (object value)
         {
             DateTime dateTime;

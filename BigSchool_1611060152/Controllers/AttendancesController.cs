@@ -6,6 +6,9 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Routing;
+using System.Data.Entity;
+using BigSchool_1611060152.DTOs;
 
 namespace BigSchool_1611060152.Controllers
 {
@@ -18,14 +21,17 @@ namespace BigSchool_1611060152.Controllers
             _dbContext = new ApplicationDbContext();
         }
         [HttpPost]
-        public IHttpActionResult Attend ([FromBody] int courseId)
+        public IHttpActionResult Attend /*([FromBody] int courseId)*/ (AttendanceDto attdanceDto)
         {
+            var userId = User.Identity.GetUserId();
+            if (_dbContext.Attendances.Any(a => a.AttendeeId == userId && a.CourseId == attdanceDto.CourseId))
+                return BadRequest("The Attendance Alrealy exists !");
             var attendance = new Attendance
             {
-                CourseId = courseId,
+                CourseId = /*courseId*/ attdanceDto.CourseId,
                 AttendeeId = User.Identity.GetUserId()
             };
-            _dbContext.Attendancse.Add(attendance);
+            _dbContext.Attendances.Add(attendance);
             _dbContext.SaveChanges();
 
             return Ok();

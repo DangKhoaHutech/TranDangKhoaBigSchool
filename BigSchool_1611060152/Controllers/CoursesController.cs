@@ -45,10 +45,21 @@ namespace BigSchool_1611060152.Controllers
                 CategoryId = viewModel.Category,
                 Place = viewModel.Place
             };
-            _dbContext.Conrses.Add(course);
+            _dbContext.Courses.Add(course);
             _dbContext.SaveChanges();
 
             return RedirectToAction("Index", "Home");
+        }
+        [Authorize]
+        public ActionResult Mine()
+        {
+            var userId = User.Identity.GetUserId();
+            var courses = _dbContext.Courses
+                .Where(c => c.LecturerId == userId && c.DateTime > DateTime.Now)
+                .Include(l => l.Lecturer)
+                .Include(c => c.Category)
+                .ToList();
+            return View(courses);
         }
         
     }

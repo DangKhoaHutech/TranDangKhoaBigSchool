@@ -9,6 +9,8 @@ namespace BigSchool_1611060152.ViewModels
 {
     public class CourseViewModel
     {
+        public int Id { get; set; }
+
         [Required] // hien thi thong bao neu khong rang buoc
         public string Place { get; set; }
 
@@ -21,6 +23,12 @@ namespace BigSchool_1611060152.ViewModels
         [Required]
         public byte Category { get; set; }
         public IEnumerable<Category> Categories { get; set; }
+
+        public string Heading { get; set; }
+        public string Action
+        {
+            get { return (Id != 0) ? "Update" : "Create"; }
+        }
 
        public DateTime GetDateTime()
         {
